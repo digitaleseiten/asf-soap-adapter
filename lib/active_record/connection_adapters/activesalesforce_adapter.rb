@@ -137,7 +137,11 @@ module ActiveRecord
 
       attr_accessor :batch_size
       attr_reader :entity_def_map, :keyprefix_to_entity_def_map, :config, :class_to_entity_map
-
+      
+      def primary_key(table)
+        "id"
+      end
+        
       # Create a new instance of the connection adapter
       def initialize(connection, logger, config)
         super(connection, logger)
@@ -227,7 +231,7 @@ module ActiveRecord
 
       # Begins the transaction (and turns off auto-committing).
       def begin_db_transaction
-        log('Opening boxcar', 'begin_db_transaction()')
+        log('Opening boxcar', 'begin_db_transaction()'){}
         @command_boxcar = []
       end
 
@@ -270,7 +274,7 @@ module ActiveRecord
 
       # Commits the transaction (and turns on auto-committing).
       def commit_db_transaction()
-        log("Committing boxcar with #{@command_boxcar.length} commands", 'commit_db_transaction()')
+        log("Committing boxcar with #{@command_boxcar.length} commands", 'commit_db_transaction()'){}
 
         previous_command = nil
         commands = []
@@ -301,7 +305,7 @@ module ActiveRecord
       # Rolls back the transaction (and turns on auto-committing). Must be
       # done if the transaction block raises an exception or returns false.
       def rollback_db_transaction()
-        log('Rolling back boxcar', 'rollback_db_transaction()')
+        log('Rolling back boxcar', 'rollback_db_transaction()'){}
         @command_boxcar = nil
       end
 
