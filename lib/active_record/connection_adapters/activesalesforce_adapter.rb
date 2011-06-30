@@ -490,7 +490,7 @@ module ActiveRecord
         fields = get_fields(columns, names, values, :updateable)
         null_fields = get_null_fields(columns, names, values, :updateable)
 
-        ids = sql.match(/WHERE\s+id\s*=\s*'(\w+)'/mi)
+        ids = sql.match(/WHERE[ \(]+[a-z]*[\.]*id\s*=\s*'(\w+)/mi)
         return if ids.nil?
         id = ids[1]
 
@@ -504,13 +504,13 @@ module ActiveRecord
       def delete(sql, name = nil)
         log(sql, name) {
           # Extract the id
-          match = sql.match(/WHERE\s+id\s*=\s*'(\w+)'/mi)
+          match = sql.match(/WHERE[ \(]+[a-z]*[\.]*id\s*=\s*'(\w+)/mi)
 
           if match
             ids = [ match[1] ]
           else
             # Check for the form (id IN ('x', 'y'))
-            match = sql.match(/WHERE\s+\(\s*id\s+IN\s*\((.+)\)\)/mi)[1]
+            match = sql.match(/WHERE\s+\(\s*[a-z]*[\.]*id\s+IN\s*\((.+)\)\)/mi)[1]  
             ids = match.scan(/\w+/)
           end
 
