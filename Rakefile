@@ -16,7 +16,7 @@ begin
     # Furthermore, added 'oath' gem as a dependency, which is needed by 'Rforce' gem
     #gem.add_dependency('rforce-raygao', '>=1.0')
     gem.add_dependency('rforce', '>=0.6')
-    gem.add_dependency('builder', '>= 1.2.4')
+    gem.add_dependency('builder', '>= 3.0.0')
     gem.add_dependency('hpricot', '>=0.8.2')
     gem.add_dependency('facets', '=2.8.4')
     gem.add_dependency('oauth', '=0.4.4')
@@ -53,7 +53,7 @@ task :test => :check_dependencies
 
 task :default => :test
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
